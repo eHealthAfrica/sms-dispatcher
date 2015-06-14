@@ -14,15 +14,15 @@ describe('recipients', function(){
       expect(recipients.levels).toEqual(jasmine.any(Object));
     });
     it('should have at least one property', function(){
-      expect(recipients.levels).toContain({});
+      expect(recipients.levels).toContain(jasmine.any(Object));
     });
   });
-  describe('recipients.set', function(){
+  describe('recipients.get', function(){
     it('should be truthy', function (){
-      expect(recipients.set).toBeTruthy()
+      expect(recipients.get).toBeTruthy()
     });
     it('should be a function', function(){
-      expect(typeof recipients.set).toBe('function');
+      expect(typeof recipients.get).toBe('function');
     });
   });
   describe('recipients.bubble', function(){
@@ -35,7 +35,7 @@ describe('recipients', function(){
     it('should return one of the elements of recipient.levels', function(){
       expect(recipients.levels).toContain(recipients.bubble());
     });
-    
+
   });
 
 });
