@@ -2,6 +2,7 @@
  * Created by ehealthafrica on 5/26/15.
  */
 var Q = require('q'),
+    couchdb = require('./services/couchdb'),
     config = require('./config/config');
 
 var factory = {};
@@ -13,5 +14,8 @@ var factory = {};
  * 2. onchange:
  * @type {{}}
  */
-
+factory.watch = function(dbName, cb){
+  var deffered = Q.defer();
+  couchdb.changes()
+};
 module.exports = factory;
