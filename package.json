@@ -1,0 +1,33 @@
+{
+  "name": "sms-dispatcher",
+  "version": "0.1.0",
+  "description": "a sms for dispatching sms based on changes to lomis stock-out and ccu breakdowns",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/freefony/sms-dispatcher.git"
+  },
+  "keywords": [
+    "sms",
+    "dispatcher"
+  ],
+  "author": "femi oni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/freefony/sms-dispatcher/issues"
+  },
+  "homepage": "https://github.com/freefony/sms-dispatcher",
+  "dependencies": {
+    "q": "^1.4.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.5.2",
+    "gulp-json-wrapper": "^1.0.0",
+    "gulp-shell": "^0.4.2",
+    "gulp-util": "^3.0.5"
+  }
+}
