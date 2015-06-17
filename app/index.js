@@ -3,11 +3,13 @@
  */
 
 var couch = require('./services/couchdb');
+var config = require('./config/config');
+var Q      = require('q');
 
-couch.changes('stockout')
-  .then(function(changes){
-    console.log(changes);
-  })
-  .catch(function(err){
-    console.log(err);
-  });
+var stockoutFeed = couch.changes(config.db.dbNames.stockout);
+
+stockoutFeed.follow();
+
+stockoutFeed.on('change', function(change){
+  console.log(change);
+});

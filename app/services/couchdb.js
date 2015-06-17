@@ -3,41 +3,32 @@
  */
 
 var config = require('../config/config'),
-    Q = require('q'),
-    nano = require('nano')(config.db.url);
+  Q = require('q'),
+  nano = require('nano')(nanocfg()),
+  couchdb = {};
+var last_seq = 0;
 
+function nanocfg() {
+  return [config.db.url.protocol, config.db.auth.username, ':', config.db.auth.password, '@', config.db.url.uri, config.db.url.port].join('');
+}
 
-couchdb = {};
-
-function create (dbName){
+function create(dbName) {
   var deferred = Q.defer();
-  nano.db.create(dbName, function(err, body){
-    if(err){
-      deferred.reject('Operation: nano.create('+ dbName +') failed' + err.toString());
-    }else{
+  nano.db.create(dbName, function (err, body) {
+    if (err) {
+      deferred.reject('Operation: nano.create(' + dbName + ') failed' + err.toString());
+    } else {
+
       deferred.resolve(body);
     }
   });
   return deferred.promise;
 }
 
-function follow(db){
+couchdb.changes = function getFeed(dbName) {
   var deferred = Q.defer();
-  var feed = db.follow();
-
-  feed.on('change', function(change){
-    deferred.resolve(change);
-  });
-  feed.on('error', function(err){
-    deferred.reject(err);
-  });
-
-  return deferred.promise;
-}
-
-couchdb.changes = function(dbName){
- return  create(dbName)
-   .then(follow)
+  var db = nano.use(dbName);
+  return db.follow({since: 0, include_docs: true});
 };
 
 
