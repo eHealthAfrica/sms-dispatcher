@@ -31,5 +31,45 @@ couchdb.changes = function getFeed(dbName) {
   return db.follow({since: 0, include_docs: true});
 };
 
+function _extractStockout (data){
+  var xtract = {};
+  if(data['doc'].facility){
+    xtract['facilityName'] = data['doc'].facility.name;
+    xtract['facilityPhone'] = data['doc'].facility.phone;
+    xtract['product'] = data['doc'].productType.code;
+    xtract['zone'] = data['doc'].facility.zoneUUID;
+    xtract['ward'] = data['doc'].facility.wardUUID;
+    xtract['lga']  = data['doc'].facility.lgaUUID;
+    return xtract;
+  }
+
+}
+function _extractCcuBreakDown (data){
+  var xtract = {};
+
+  xtract[facility] ='';
+  xtract['facilityPhone'] = '';
+  xtract['zone'] = data['doc'].facility.zoneUUID;
+  xtract['ward'] = data['doc'].facility.wardUUID;
+  xtract['lga']  = data['doc'].facility.lgaUUID;
+
+  return xtract;
+}
+couchdb.extract = function(data, structure){
+  var deferred = Q.defer();
+  var xData;
+  if(structure == 'stockout'){
+    xData  = _extractStockout(data);
+  }else if(structure == 'ccubreakdown'){
+    xData  = _extraCcuBreakDown(data);
+  }
+
+  if(xData){
+    deferred.resolve(xData);
+  }else{
+    deferred.reject('could not extract data');
+  }
+  return deferred.promise;
+};
 
 module.exports = couchdb;

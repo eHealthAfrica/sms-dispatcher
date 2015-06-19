@@ -3,18 +3,20 @@
  */
 
 var recipients = require('../app/recipients');
+var config     = require('../config/config');
 
 describe('recipients', function(){
+
 
   it('should be defined', function(){
     expect(recipients).not.toBeUndefined();
   });
   describe('recipients.level', function(){
     it('should be an object', function(){
-      expect(recipients.levels).toEqual(jasmine.any(Object));
+      expect(config.recipientlevels).toEqual(jasmine.any(Object));
     });
     it('should have at least one property', function(){
-      expect(recipients.levels).toContain(jasmine.any(Object));
+      expect(config.recipientlevels).toContain(jasmine.any(Object));
     });
   });
   describe('recipients.get', function(){
