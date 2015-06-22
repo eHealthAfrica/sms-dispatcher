@@ -4,7 +4,7 @@
 
 var couch = require('./services/couchdb');
 var recipient = require('./services/recipients');
-var msg = require('./services/msges');
+var msg = require('./msges');
 var config = require('./config/config');
 var Q = require('q');
 
@@ -21,7 +21,7 @@ stockoutFeed.on('change', function (change) {
   couch.extract(change, 'stockout')
     .then(recipient.get)
     .then(msg.prepare)
-    .then(msg.sendSms)
+    //.then(msg.sendSms)
     .catch(function(err){ conosle.log(err)})
 
 });
