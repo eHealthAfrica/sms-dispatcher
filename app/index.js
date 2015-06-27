@@ -21,7 +21,10 @@ stockoutFeed.on('change', function (change) {
   couch.extract(change, 'stockout')
     .then(recipient.get)
     .then(msg.prepare)
-    //.then(msg.sendSms)
+    .then(msg.sendSms)
+    .then(function(res){
+      console.log(res);
+    })
     .catch(function(err){ conosle.log(err)})
 
 });
